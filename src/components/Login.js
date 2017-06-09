@@ -31,6 +31,10 @@ class Login extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.onUnload();
+  }
+
   render() {
     const email = this.props.email;
     const password = this.props.password;
