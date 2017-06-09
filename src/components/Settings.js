@@ -3,7 +3,21 @@ import React from 'react';
 import { Link } from 'react-router';
 import agent from '../agent';
 import { connect } from 'react-redux';
+
 import store from '../store';
+
+
+const mapStateToProps = state => ({
+  ...state.settings,
+  currentUser: state.common.currentUser
+});
+
+const mapDispatchToProps = dispatch => ({
+  onClickLogout: () => dispatch({ type: 'LOGOUT' }),
+  onSubmitForm: user =>
+    dispatch({ type: 'SETTINGS_SAVED', payload: agent.Auth.save(user) })
+});
+
 
 class SettingsForm extends React.Component {
   constructor() {
@@ -121,6 +135,7 @@ class SettingsForm extends React.Component {
   }
 }
 
+
 const mapStateToProps = state => ({
   ...state.settings,
   currentUser: state.common.currentUser
@@ -166,3 +181,4 @@ class Settings extends React.Component {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);
+

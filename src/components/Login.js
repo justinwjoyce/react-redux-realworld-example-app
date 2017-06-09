@@ -26,6 +26,9 @@ class Login extends React.Component {
       ev.preventDefault();
       this.props.onSubmit(email, password);
     };
+   componentWillUnmount() {
+    this.props.onUnload();
+    }
   }
 
   componentWillUnmount() {
