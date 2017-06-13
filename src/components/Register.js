@@ -1,3 +1,4 @@
+
 import { Link } from 'react-router';
 import ListErrors from './ListErrors';
 import React from 'react';
@@ -16,13 +17,9 @@ const mapDispatchToProps = dispatch => ({
   onSubmit: (username, email, password) => {
     const payload = agent.Auth.register(username, email, password);
     dispatch({ type: 'REGISTER', payload })
-
   },
   onUnload: () =>
     dispatch({ type: 'REGISTER_PAGE_UNLOADED' })
-
-  }
-
 });
 
 class Register extends React.Component {
@@ -40,7 +37,6 @@ class Register extends React.Component {
   componentWillUnmount() {
     this.props.onUnload();
   }
-
 
   render() {
     const email = this.props.email;
@@ -111,4 +107,3 @@ class Register extends React.Component {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);
-
