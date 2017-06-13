@@ -1,3 +1,4 @@
+
 import { Link } from 'react-router';
 import ListErrors from './ListErrors';
 import React from 'react';
@@ -26,9 +27,6 @@ class Login extends React.Component {
       ev.preventDefault();
       this.props.onSubmit(email, password);
     };
-   componentWillUnmount() {
-    this.props.onUnload();
-    }
   }
 
   componentWillUnmount() {
