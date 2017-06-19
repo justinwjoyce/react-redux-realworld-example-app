@@ -1,50 +1,41 @@
-import React from 'react';
+import CommentInput from './CommentInput';
+import CommentList from './CommentList';
 import { Link } from 'react-router';
+import React from 'react';
 
-const ArticlePreview = props => {
-  const article = props.article;
-
-  return (
-    <div className="article-preview">
-      <div className="article-meta">
-        <Link to={`@${article.author.username}`}>
-          <img src={article.author.image} />
-        </Link>
-
-        <div className="info">
-          <Link className="author" to={`@${article.author.username}`}>
-            {article.author.username}
-          </Link>
-          <span className="date">
-            {new Date(article.createdAt).toDateString()}
-          </span>
+const CommentContainer = props => {
+  if (props.currentUser) {
+    return (
+      <div className="col-xs-12 col-md-8 offset-md-2">
+        <div>
+          <list-errors errors={props.errors}></list-errors>
+          <CommentInput slug={props.slug} currentUser={props.currentUser} />
         </div>
 
-        <div className="pull-xs-right">
-          <button className="btn btn-sm btn-outline-primary">
-            <i className="ion-heart"></i> {article.favoritesCount}
-          </button>
-        </div>
+        <CommentList
+          comments={props.comments}
+          slug={props.slug}
+          currentUser={props.currentUser} />
       </div>
+    );
+  } else {
+    return (
+      <div className="col-xs-12 col-md-8 offset-md-2">
+        <p>
+          <Link to="login">Sign in</Link>
+          &nbsp;or&nbsp;
+          <Link to="register">sign up</Link>
+          &nbsp;to add comments on this article.
+        </p>
 
-      <Link to={`article/${article.slug}`} className="preview-link">
-        <h1>{article.title}</h1>
-        <p>{article.description}</p>
-        <span>Read more...</span>
-        <ul className="tag-list">
-          {
-            article.tagList.map(tag => {
-              return (
-                <li className="tag-default tag-pill tag-outline" key={tag}>
-                  {tag}
-                </li>
-              )
-            })
-          }
-        </ul>
-      </Link>
-    </div>
-  );
-}
+        <CommentList
+          comments={props.comments}
+          slug={props.slug}
+          currentUser={props.currentUser} />
+      </div>
+    );
+  }
+};
 
-export default ArticlePreview;
+export default CommentContainer;
+
