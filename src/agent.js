@@ -52,8 +52,6 @@ const Comments = {
     requests.post(`/articles/${slug}/comments`, { comment }),
   delete: (slug, commentId) =>
     requests.del(`/articles/${slug}/comments/${commentId}`),
-  forArticle: slug =>
-    requests.get(`/articles/${slug}/comments`)
 };
 
 export default {
@@ -62,3 +60,4 @@ export default {
   Comments,
   setToken: _token => { token = _token; }
 };
+// test
