@@ -76,3 +76,4 @@ export default {
   Profile,
   setToken: _token => { token = _token; }
 };
+// 08 merge
