@@ -1,27 +1,13 @@
+
+'use strict';
+
+
 import ArticleList from './ArticleList';
 import React from 'react';
 import { Link } from 'react-router';
 import agent from '../agent';
 import { connect } from 'react-redux';
 
-const mapStateToProps = state => ({
-  ...state.articleList,
-  currentUser: state.common.currentUser,
-  profile: state.profile
-});
-
-const mapDispatchToProps = dispatch => ({
-  onFollow: username => dispatch({
-    type: 'FOLLOW_USER',
-    payload: agent.Profile.follow(username)
-  }),
-  onLoad: payload => dispatch({ type: 'PROFILE_PAGE_LOADED', payload }),
-  onUnfollow: username => dispatch({
-    type: 'UNFOLLOW_USER',
-    payload: agent.Profile.unfollow(username)
-  }),
-  onUnload: () => dispatch({ type: 'PROFILE_PAGE_UNLOADED' })
-});
 
 const EditProfileSettings = props => {
   if (props.isUser) {
@@ -37,7 +23,8 @@ const EditProfileSettings = props => {
 };
 
 const FollowUserButton = props => {
-  if (props.isUser) {
+
+  if (!props.isUser) {
     return null;
   }
 
@@ -67,6 +54,7 @@ const FollowUserButton = props => {
     </button>
   );
 };
+
 
 class Profile extends React.Component {
   componentWillMount() {
@@ -108,9 +96,11 @@ class Profile extends React.Component {
       return null;
     }
 
-    const isUser = this.props.currentUser &&
-      this.props.profile.username === this.props.currentUser.username;
+    const canEdit = this.props.currentUser &&
+      this.props.currentUser.username === profile.username
 
+    const canFollow = this.props.currentUser &&
+      this.props.currentUser.username !== profile.username
     return (
       <div className="profile-page">
 
@@ -123,9 +113,10 @@ class Profile extends React.Component {
                 <h4>{profile.username}</h4>
                 <p>{profile.bio}</p>
 
-                <EditProfileSettings isUser={isUser} />
+
+                <EditProfileSettings isUser={canEdit} />
                 <FollowUserButton
-                  isUser={isUser}
+                  isUser={canFollow}
                   user={profile}
                   follow={this.props.onFollow}
                   unfollow={this.props.onUnfollow}
