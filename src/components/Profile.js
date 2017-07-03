@@ -1,10 +1,13 @@
+
 'use strict';
+
 
 import ArticleList from './ArticleList';
 import React from 'react';
 import { Link } from 'react-router';
 import agent from '../agent';
 import { connect } from 'react-redux';
+
 
 const EditProfileSettings = props => {
   if (props.isUser) {
@@ -20,6 +23,7 @@ const EditProfileSettings = props => {
 };
 
 const FollowUserButton = props => {
+
   if (!props.isUser) {
     return null;
   }
@@ -51,24 +55,6 @@ const FollowUserButton = props => {
   );
 };
 
-const mapStateToProps = state => ({
-  ...state.articleList,
-  currentUser: state.common.currentUser,
-  profile: state.profile
-});
-
-const mapDispatchToProps = dispatch => ({
-  onFollow: username => dispatch({
-    type: 'FOLLOW_USER',
-    payload: agent.Profile.follow(username)
-  }),
-  onLoad: payload => dispatch({ type: 'PROFILE_PAGE_LOADED', payload }),
-  onUnfollow: username => dispatch({
-    type: 'UNFOLLOW_USER',
-    payload: agent.Profile.unfollow(username)
-  }),
-  onUnload: () => dispatch({ type: 'PROFILE_PAGE_UNLOADED' })
-});
 
 class Profile extends React.Component {
   componentWillMount() {
@@ -115,7 +101,6 @@ class Profile extends React.Component {
 
     const canFollow = this.props.currentUser &&
       this.props.currentUser.username !== profile.username
-
     return (
       <div className="profile-page">
 
@@ -127,6 +112,7 @@ class Profile extends React.Component {
                 <img src={profile.image} className="user-img" />
                 <h4>{profile.username}</h4>
                 <p>{profile.bio}</p>
+
 
                 <EditProfileSettings isUser={canEdit} />
                 <FollowUserButton

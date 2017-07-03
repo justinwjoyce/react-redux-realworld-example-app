@@ -58,8 +58,15 @@ const Comments = {
     requests.post(`/articles/${slug}/comments`, { comment }),
   delete: (slug, commentId) =>
     requests.del(`/articles/${slug}/comments/${commentId}`),
-  forArticle: slug =>
-    requests.get(`/articles/${slug}/comments`)
+};
+
+const Profile = {
+  follow: username =>
+    requests.post(`/profiles/${username}/follow`),
+  get: username =>
+    requests.get(`/profiles/${username}`),
+  unfollow: username =>
+    requests.del(`/profiles/${username}/follow`)
 };
 
 const Profile = {
@@ -78,3 +85,8 @@ export default {
   Profile,
   setToken: _token => { token = _token; }
 };
+<<<<<<< HEAD
+=======
+
+// 08 merge
+>>>>>>> c53221f2fe1e1f9c1e11641098accd345330be78
